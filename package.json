@@ -1,0 +1,23 @@
+{
+  "name": "eventbot",
+  "version": "1.0.0",
+  "description": "An event planning bot for discord server",
+  "main": "src/index.js",
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sschwei1/EventBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sschwei1/EventBot/issues"
+  },
+  "homepage": "https://github.com/sschwei1/EventBot#readme"
+}

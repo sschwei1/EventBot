@@ -1,2 +1,4 @@
-./node_modules/*
+.idea/*
+node_modules/*
 *.config
+node_modules/discord.js/src/client/actions/MessageCreate.js
