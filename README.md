@@ -13,9 +13,10 @@ Each event will have its own channel, where only subscribed people will have acc
 # Usuage
 Following commands are currently planned:
 
-|command							|description						|
-|:----------------------------------|:----------------------------------|
-|`!ev create <eventName>`			|Create an event					|
-|`!ev sub <eventName>`				|Subscribe to an event				|
-|`!ev unsub <eventName>`			|Unsubscribe to an event			|
-|`!ev edit <option> <information>`	|Edit information about an event	|
+|command							|description															|
+|:----------------------------------|:----------------------------------------------------------------------|
+|`!ev init <channelname/id>`		|Creates hub channel, in which information about new events is shared	|
+|`!ev create <eventName>`			|Create an event														|
+|`!ev sub <eventName>`				|Subscribe to an event													|
+|`!ev unsub <eventName>`			|Unsubscribe to an event												|
+|`!ev edit <option> <information>`	|Edit information about an event										|
