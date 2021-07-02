@@ -18,6 +18,7 @@ const getConfig = () => {
     fs.copyFile('main.config.template', configPath, (err) => {
       if (err) throw err;
     });
+    writeLog('Config file created, please fill in all <> and restart the app');
     return;
   }
 

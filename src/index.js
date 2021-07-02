@@ -2,11 +2,14 @@ const Discord = require('discord.js');
 const FileHelper = require('./helper/fileHelper');
 const ArgsHelper = require('./helper/argsHelper');
 
-const config = FileHelper.getConfig();
-const client = new Discord.Client();
-
 FileHelper.clearLog();
-FileHelper.writeLog('test');
+
+const config = FileHelper.getConfig();
+if(!config) {
+  throw new Error('No config file found, please read the log file for further instructions!');
+}
+
+const client = new Discord.Client();
 
 client.commands = new Discord.Collection();
 FileHelper.registerCommands(client);
@@ -15,7 +18,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag} #uwu`);
 });
 
-client.on('message', msg => {
+client.on('message', async msg => {
   // check if author is another bot and if message is meant for this bot
   if(msg.author.bot || !msg.content.startsWith(config.prefix)) return;
 
@@ -34,8 +37,12 @@ client.on('message', msg => {
   }
   catch (error) {
     console.error(error);
-    msg.reply('an error occurred while executing your command');
+    await msg.reply('an error occurred while executing your command');
   }
 });
 
-client.login(config.token);
+client.login(config.token).catch((e) => {
+  FileHelper.writeLog(e);
+  FileHelper.writeLog('Error while bot login, did you provide a token in the config file?');
+  throw new Error('Bot login failed, check ./bot.log file for more information');
+});
