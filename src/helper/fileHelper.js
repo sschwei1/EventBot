@@ -10,18 +10,19 @@ const clearLog = () => {
 };
 
 const writeLog = (msg) => {
-  if(Array.isArray(msg)) {
+  if (Array.isArray(msg)) {
     msg = msg.map(e => `[${e.timestamp}] ${e.message}`).join('\n');
   }
   else {
-    msg = `[${moment().format()}] ${msg}\n`;
+    msg = `[${moment().format()}] ${msg}`;
   }
 
-  fs.appendFileSync(logPath, msg);
+  console.log(msg);
+  fs.appendFileSync(logPath, msg + '\n');
 };
 
 const getConfig = () => {
-  if(!fs.existsSync(configPath)) {
+  if (!fs.existsSync(configPath)) {
     fs.copyFile('main.config.template', configPath, (err) => {
       if (!err) return;
       writeLog(err);
@@ -37,7 +38,7 @@ const getConfig = () => {
 
 const registerCommands = (client) => {
   const commandFiles = fs.readdirSync(commandPath).filter(file => file.endsWith('.js'));
-  for(const file of commandFiles) {
+  for (const file of commandFiles) {
     const command = require(`../commands/${file}`);
     client.commands.set(command.name, command);
   }

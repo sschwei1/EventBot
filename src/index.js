@@ -5,7 +5,7 @@ const ah = require('./helper/argsHelper');
 fh.clearLog();
 
 const config = fh.getConfig();
-if(!config) {
+if (!config) {
   throw new Error('No config file found, please read the log file for further instructions!');
 }
 
@@ -20,7 +20,7 @@ client.on('ready', () => {
 
 client.on('message', async msg => {
   // check if author is another bot and if message is meant for this bot
-  if(msg.author.bot || !msg.content.startsWith(config.prefix)) return;
+  if (msg.author.bot || !msg.content.startsWith(config.prefix)) return;
 
   // split msg content to command/args
   const argVals = msg.content.slice(config.prefix.length).trim().split(/ +/);
@@ -29,7 +29,7 @@ client.on('message', async msg => {
   fh.writeLog(`Message: '${msg.content}' sent by user: '${msg.author.username}'`);
 
   // check if command exists
-  if(!client.commands.has(commandName)) {
+  if (!client.commands.has(commandName)) {
     fh.writeLog(`Invalid command '${commandName}' entered by user '${msg.author.username}'`)
     await msg.reply(`Command ${commandName} was not found, please check for typos.`);
     return;
@@ -38,11 +38,10 @@ client.on('message', async msg => {
   // execute command and handle error
   try {
     const command = client.commands.get(commandName);
-    if(!ah.checkArgs(msg, argVals, command.args)) return;
+    if (!ah.checkArgs(msg, argVals, command.args)) return;
 
     const args = ah.parseArgs(command, argVals);
-    console.log(args);
-    command.execute(msg, args);
+    await command.execute(msg, args);
   }
   catch (err) {
     fh.writeLog(err);

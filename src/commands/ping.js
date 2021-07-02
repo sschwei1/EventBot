@@ -3,12 +3,14 @@ module.exports = {
   description: 'Ping!',
   args: [{
     name: 'arg1',
-    required:true
-  },{
+    description: 'arg1 desc uwu',
+    required: true
+  }, {
     name: 'arg2',
+    description: 'arg2 desc uwu',
     required: false
   }],
-  execute(msg, args) {
-    msg.channel.send('Pong.');
+  async execute(msg, args) {
+    await msg.channel.send('Pong.');
   }
 };
