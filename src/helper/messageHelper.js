@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const fh = require('./fileHelper')
 
 const getUsageString = (command, prefix) => {
   return `${prefix}${command.name} ${mapArgs(command.args)}`;
@@ -6,21 +7,21 @@ const getUsageString = (command, prefix) => {
 
 const mapArgs = (args) => {
   return args.map(e => {
-    return e.required ? `<${e.name}>` : `[${e.name}]`;
+    return e.required ? `[${e.name}]` : `{${e.name}}`;
   }).join(' ');
 };
 
 const argString = (arg) => {
-  const description = arg.description ? arg.description + '\n' : '';
-  return `${description}Required:${cmdLineBlock(arg.required)}`;
+  const description = arg.description !== undefined ? arg.description + '\n' : '';
+  const defaultValue = arg.default !== undefined ? 'default value: ' + arg.default + '\n' : '';
+  return description + defaultValue;
 };
 
 const retHelp = (isArgs, haveArgs, cmdName, msg, global) => {
   if(!(isArgs.length === 0 && haveArgs.filter(e => e.required).length > 0)) return false;
 
-  const createHelpEmbed = require('./messageHelper').createHelpEmbed;
   const embed = createHelpEmbed(cmdName, global);
-  msg.channel.send(embed);
+  msg.channel.send(embed).catch(e => fh.writeLog(e));
   return true;
 };
 
@@ -40,6 +41,8 @@ const genEmbed = (options) => {
     .addFields(options?.fields ?? []);
 };
 
+// commands which create embeds are usually in the same file, as the command itself
+// the help embed is also used in other places, so its here
 const createHelpEmbed = (cmdName, global) => {
   const { client, config } = global;
 
@@ -59,7 +62,8 @@ const createHelpEmbed = (cmdName, global) => {
     description: command.description,
     fields: [
       { name: 'Usage:', value: cmdLineBlock(cmdString) },
-      ...cmdArgFields
+      ...cmdArgFields,
+      { name: 'Command parameter explanation:', value: `${cmdLineBlock('[...]')} => required\n${cmdLineBlock('{...}')} => optional`},
     ]
   }
 

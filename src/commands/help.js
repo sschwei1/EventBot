@@ -23,7 +23,7 @@ module.exports = {
       return;
     }
 
-    const response = mh.createHelpEmbed(args[0].value);
+    const response = mh.createHelpEmbed(args[0].value, this.global);
     await msg.channel.send(response);
   }
 };
