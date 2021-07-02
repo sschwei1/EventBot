@@ -5,6 +5,9 @@ const ArgsHelper = require('./helper/argsHelper');
 const config = FileHelper.getConfig();
 const client = new Discord.Client();
 
+FileHelper.clearLog();
+FileHelper.writeLog('test');
+
 client.commands = new Discord.Collection();
 FileHelper.registerCommands(client);
 

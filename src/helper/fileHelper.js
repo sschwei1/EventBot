@@ -1,20 +1,41 @@
 const fs = require('fs');
+const moment = require('moment');
+
+const logPath = './bot.log';
+const configPath = './main.config';
+const commandPath = './src/commands';
+
+const clearLog = () => {
+  fs.writeFileSync(logPath, '');
+};
+
+const writeLog = (msg) => {
+  fs.appendFileSync(logPath, `[${moment().format()}] ${msg}\n`);
+};
 
 const getConfig = () => {
-  const raw = fs.readFileSync('./main.config', 'utf8').trim();
+  if(!fs.existsSync(configPath)) {
+    fs.copyFile('main.config.template', configPath, (err) => {
+      if (err) throw err;
+    });
+    return;
+  }
+
+  const raw = fs.readFileSync(configPath, 'utf8').trim();
   return JSON.parse(raw);
-}
+};
 
 const registerCommands = (client) => {
-  const commandPath = './src/commands';
   const commandFiles = fs.readdirSync(commandPath).filter(file => file.endsWith('.js'));
   for(const file of commandFiles) {
     const command = require(`../commands/${file}`);
     client.commands.set(command.name, command);
   }
-}
+};
 
 module.exports = {
+  clearLog,
+  writeLog,
   getConfig,
   registerCommands
 };
