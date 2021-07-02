@@ -35,14 +35,14 @@ client.on('message', async msg => {
     if(!ArgsHelper.checkArgs(msg, args, command.args)) return;
     command.execute(msg, args);
   }
-  catch (error) {
-    console.error(error);
-    await msg.reply('an error occurred while executing your command');
+  catch (err) {
+    FileHelper.writeLog(err);
+    await msg.reply('An error occurred while executing your command, message an admin of the bot if this error persists');
   }
 });
 
-client.login(config.token).catch((e) => {
-  FileHelper.writeLog(e);
+client.login(config.token).catch((err) => {
+  FileHelper.writeLog(err);
   FileHelper.writeLog('Error while bot login, did you provide a token in the config file?');
   throw new Error('Bot login failed, check ./bot.log file for more information');
 });

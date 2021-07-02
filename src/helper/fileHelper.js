@@ -16,7 +16,9 @@ const writeLog = (msg) => {
 const getConfig = () => {
   if(!fs.existsSync(configPath)) {
     fs.copyFile('main.config.template', configPath, (err) => {
-      if (err) throw err;
+      if (!err) return;
+      writeLog(err);
+      throw err;
     });
     writeLog('Config file created, please fill in all <> and restart the app');
     return;
