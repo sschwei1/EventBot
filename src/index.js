@@ -27,7 +27,11 @@ client.on('message', async msg => {
   const commandName = args.shift().toLowerCase();
 
   // check if command exists
-  if(!client.commands.has(commandName)) return;
+  if(!client.commands.has(commandName)) {
+    fh.writeLog(`Invalid command '${commandName}' entered by user '${msg.author.username}'`)
+    await msg.reply(`Command ${commandName} was not found, please check for typos.`);
+    return;
+  }
 
   // execute command and handle error
   try {

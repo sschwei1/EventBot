@@ -10,7 +10,14 @@ const clearLog = () => {
 };
 
 const writeLog = (msg) => {
-  fs.appendFileSync(logPath, `[${moment().format()}] ${msg}\n`);
+  if(Array.isArray(msg)) {
+    msg = msg.map(e => `[${e.timestamp}] ${e.message}`).join('\n');
+  }
+  else {
+    msg = `[${moment().format()}] ${msg}\n`;
+  }
+
+  fs.appendFileSync(logPath, msg);
 };
 
 const getConfig = () => {
