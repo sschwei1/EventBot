@@ -1,4 +1,4 @@
-const fh = require('fileHelper');
+const fh = require('./fileHelper');
 
 const checkArgs = (msg, isArgs, haveArgs) => {
   // check if minimum amount of args is given

@@ -44,5 +44,5 @@ client.on('message', async msg => {
 client.login(config.token).catch((err) => {
   fh.writeLog(err);
   fh.writeLog('Error while bot login, did you provide a token in the config file?');
-  throw new Error('Bot login failed, check ./bot.log file for more information');
+  process.exit(1);
 });
