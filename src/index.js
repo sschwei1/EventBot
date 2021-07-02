@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
-const fh = require('./helper/fileHelper');
+
 const ah = require('./helper/argsHelper');
+const mh = require('./helper/messageHelper');
+const fh = require('./helper/fileHelper');
 
 fh.clearLog();
 
@@ -12,7 +14,7 @@ if (!config) {
 const client = new Discord.Client();
 
 client.commands = new Discord.Collection();
-fh.registerCommands(client);
+fh.registerCommands(client, config);
 
 client.on('ready', () => {
   fh.writeLog(`Logged in as ${client.user.tag} #uwu`);
@@ -41,7 +43,10 @@ client.on('message', async msg => {
     if (!ah.checkArgs(msg, argVals, command.args)) return;
 
     const args = ah.parseArgs(command, argVals);
-    await command.execute(msg, args);
+
+    if(!mh.retHelp(argVals, command.args, commandName, msg, {client, config})){
+      await command.execute(msg, args);
+    }
   }
   catch (err) {
     fh.writeLog(err);

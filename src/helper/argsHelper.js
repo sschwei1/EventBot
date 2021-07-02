@@ -1,8 +1,13 @@
 const fh = require('./fileHelper');
 
 const checkArgs = (msg, isArgs, haveArgs) => {
+  // if no args are given, return true, no arguments will either
+  // return help or the actual command,depending, weather the command expects args or not
+  if(isArgs.length === 0) return true;
+
   // check if minimum amount of args is given
   const minArgs = haveArgs.filter(e => e.required);
+
   if (isArgs.length < minArgs.length) {
     fh.writeLog(`Received command from ${msg.author.name} with ${isArgs.length} arguments, expected a minimum of ${minArgs.length} arguments!`);
     msg.reply('Not enough arguments given');

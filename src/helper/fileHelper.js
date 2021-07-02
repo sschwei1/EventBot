@@ -36,10 +36,15 @@ const getConfig = () => {
   return JSON.parse(raw);
 };
 
-const registerCommands = (client) => {
+const registerCommands = (client, config) => {
   const commandFiles = fs.readdirSync(commandPath).filter(file => file.endsWith('.js'));
   for (const file of commandFiles) {
     const command = require(`../commands/${file}`);
+    command.global = {
+      client: client,
+      config: config
+    };
+
     client.commands.set(command.name, command);
   }
 };

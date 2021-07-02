@@ -1,31 +1,5 @@
 const fh = require('../helper/fileHelper');
-const ch = require('../helper/commandHelper');
 const mh = require('../helper/messageHelper');
-
-const createHelpEmbed = (arg) => {
-  const {client, config} = require('../index');
-
-  const command = client.commands.get(arg.value);
-  const cmdString = ch.getUsageString(command, config.prefix);
-  const cmdArgFields = command.args.map(e => {
-    return {
-      name: e.name,
-      value: ch.argString(e),
-      inline: true
-    }
-  });
-
-  const resOptions = {
-    title: `Command: ${mh.cmdLineBlock(command.name)}`,
-    description: command.description,
-    fields: [
-      { name: 'Usage:', value: mh.cmdBlock(cmdString) },
-      ...cmdArgFields
-    ]
-  }
-
-  return mh.genEmbed(resOptions);
-};
 
 module.exports = {
   name: 'help',
@@ -36,7 +10,9 @@ module.exports = {
     required: true
   }],
   async execute(msg, args) {
-    const {client, config} = require('../index');
+    const {client, config} = this.global;
+
+    if(mh.retHelp(args, this.args, this.name, msg, this.global)) return;
 
     if (!client.commands.has(args[0].value)) {
       msg.channel
@@ -47,7 +23,7 @@ module.exports = {
       return;
     }
 
-    const response = createHelpEmbed(args[0]);
+    const response = mh.createHelpEmbed(args[0].value);
     await msg.channel.send(response);
   }
 };
