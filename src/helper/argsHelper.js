@@ -21,6 +21,16 @@ const checkArgs = (msg, isArgs, haveArgs) => {
   return true;
 };
 
+const parseArgs = (command, args) => {
+  const comArgs = command.args;
+  return args.map((argVal, i) => {
+    return {
+      ...comArgs[i],
+      value: argVal
+    }});
+};
+
 module.exports = {
-  checkArgs
+  checkArgs,
+   parseArgs
 };

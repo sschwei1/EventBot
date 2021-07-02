@@ -15,7 +15,7 @@ client.commands = new Discord.Collection();
 fh.registerCommands(client);
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag} #uwu`);
+  fh.writeLog(`Logged in as ${client.user.tag} #uwu`);
 });
 
 client.on('message', async msg => {
@@ -23,8 +23,10 @@ client.on('message', async msg => {
   if(msg.author.bot || !msg.content.startsWith(config.prefix)) return;
 
   // split msg content to command/args
-  const args = msg.content.slice(config.prefix.length).trim().split(/ +/);
-  const commandName = args.shift().toLowerCase();
+  const argVals = msg.content.slice(config.prefix.length).trim().split(/ +/);
+  const commandName = argVals.shift().toLowerCase();
+
+  fh.writeLog(`Message: '${msg.content}' sent by user: '${msg.author.username}'`);
 
   // check if command exists
   if(!client.commands.has(commandName)) {
@@ -36,7 +38,10 @@ client.on('message', async msg => {
   // execute command and handle error
   try {
     const command = client.commands.get(commandName);
-    if(!ah.checkArgs(msg, args, command.args)) return;
+    if(!ah.checkArgs(msg, argVals, command.args)) return;
+
+    const args = ah.parseArgs(command, argVals);
+    console.log(args);
     command.execute(msg, args);
   }
   catch (err) {
@@ -50,3 +55,8 @@ client.login(config.token).catch((err) => {
   fh.writeLog('Error while bot login, did you provide a token in the config file?');
   process.exit(1);
 });
+
+module.exports = {
+  client,
+  config
+};
