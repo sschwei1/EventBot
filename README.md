@@ -16,15 +16,15 @@ For v1 the bot is designed to only work on a single server and without a databas
 # Commands
 Following commands are currently planned:
 
-|command|description|
-|:--|:--|
-|`!ev commands [showDetails=false]`|Shows all available commands, if wanted, it shows a bit more detailed list, including usage of each command|
-|`!ev help <command>`|Shows all available commands, can also show a more detailed list if wanted|
-|`!ev init <channelname/id>`|Creates hub channel, in which information about new events is shared|
-|`!ev create <eventName>`|Create an event|
-|`!ev sub <eventName>`|Subscribe to an event|
-|`!ev unsub <eventName>`|Unsubscribe to an event|
-|`!ev edit <option> <information>`|Edit information about an event|
+|command|description|status|
+|:--|:--|:--|
+|`!ev commands [showDetails=false]`|Shows all available commands, if wanted, it shows a bit more detailed list, including usage of each command|:heavy_check_mark:|
+|`!ev help <command>`|Shows all available commands, can also show a more detailed list if wanted|:heavy_check_mark:|
+|`!ev init <channelname/id>`|Creates hub channel, in which information about new events is shared|:x:|
+|`!ev create <eventName>`|Create an event|:x:|
+|`!ev sub <eventName>`|Subscribe to an event|:x:|
+|`!ev unsub <eventName>`|Unsubscribe to an event|:x:|
+|`!ev edit <option> <information>`|Edit information about an event|:x:|
 
 # Usage
 The bot can be run, by using:
