@@ -1,4 +1,3 @@
-
 # DiscordEventBot
 The idea behind this project is, to have a simple tool to plan on different events.
 Me and a few friends often had the problem, that we never knew who would come to meetup and who still needed more information
@@ -16,7 +15,7 @@ For v1 the bot is designed to only work on a single server and without a databas
 # Commands
 Following commands are currently planned:
 
-|command|description|status|
+|command&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|description|status|
 |:--|:--|:--|
 |`!ev commands [showDetails=false]`|Shows all available commands, if wanted, it shows a bit more detailed list, including usage of each command|:heavy_check_mark:|
 |`!ev help <command>`|Shows all available commands, can also show a more detailed list if wanted|:heavy_check_mark:|
