@@ -1,9 +1,21 @@
 const fs = require('fs');
 const moment = require('moment');
 
-const logPath = './bot.log';
 const configPath = './main.config';
 const commandPath = './src/commands';
+
+// needs to be initialized before logPath, otherwise not defined
+const genLogPath = () => {
+  const logFolder = './logs';
+  if(!fs.existsSync(logFolder)) {
+    fs.mkdirSync(logFolder);
+  }
+
+  const fileCnt = fs.readdirSync('./logs').length;
+  return `${logFolder}/bot_${fileCnt}.log`;
+};
+
+const logPath = genLogPath();
 
 const clearLog = () => {
   fs.writeFileSync(logPath, '');
