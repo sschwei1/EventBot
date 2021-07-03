@@ -1,3 +1,4 @@
+
 # DiscordEventBot
 The idea behind this project is, to have a simple tool to plan on different events.
 Me and a few friends often had the problem, that we never knew who would come to meetup and who still needed more information
@@ -10,13 +11,32 @@ What this bot should be capable of:
  
 Each event will have its own channel, where only subscribed people will have access to.
 
-# Usuage
+For v1 the bot is designed to only work on a single server and without a database, in later versions, this will probably change.
+
+# Commands
 Following commands are currently planned:
 
-|command							|description															|
-|:----------------------------------|:----------------------------------------------------------------------|
-|`!ev init <channelname/id>`		|Creates hub channel, in which information about new events is shared	|
-|`!ev create <eventName>`			|Create an event														|
-|`!ev sub <eventName>`				|Subscribe to an event													|
-|`!ev unsub <eventName>`			|Unsubscribe to an event												|
-|`!ev edit <option> <information>`	|Edit information about an event										|
+|command|description|
+|:--|:--|
+|`!ev commands [showDetails=false]`|Shows all available commands, if wanted, it shows a bit more detailed list, including usage of each command|
+|`!ev help <command>`|Shows all available commands, can also show a more detailed list if wanted|
+|`!ev init <channelname/id>`|Creates hub channel, in which information about new events is shared|
+|`!ev create <eventName>`|Create an event|
+|`!ev sub <eventName>`|Subscribe to an event|
+|`!ev unsub <eventName>`|Unsubscribe to an event|
+|`!ev edit <option> <information>`|Edit information about an event|
+
+# Usage
+The bot can be run, by using:
+```sh
+npm run start
+```
+If no config file is found, a default template will be copied and the bot will stop, in the config file you need to add the token of your bot and can also adjust the prefix for commands.
+The config file contains a json looking as follows:
+```json
+{
+  "token": "<your_bot_token",
+  "prefix": "!ev "
+}
+```
+
