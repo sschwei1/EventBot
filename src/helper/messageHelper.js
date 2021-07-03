@@ -13,8 +13,9 @@ const mapArgs = (args) => {
 
 const argString = (arg) => {
   const description = arg.description !== undefined ? arg.description + '\n' : '';
-  const defaultValue = arg.default !== undefined ? 'default value: ' + arg.default + '\n' : '';
-  return description + defaultValue;
+  const defaultValue = arg.default !== undefined ? 'Default value: ' + cmdLineBlock(arg.default) + '\n' : '';
+  const required = 'Required: ' + cmdLineBlock(arg.required ?? true);
+  return description + defaultValue + required;
 };
 
 const retHelp = (isArgs, haveArgs, cmdName, msg, global) => {
