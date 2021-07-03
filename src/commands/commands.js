@@ -3,7 +3,7 @@ const mh = require('../helper/messageHelper');
 const createCommandOverviewEmbed = (cmd, commands) => {
 
   const cmdMapString = commands.map(e => {
-    return `${mh.cmdLineBlock(e.name)}`
+    return `${e.name.cmdLineBlock()}`
   }).join(',');
 
   const resOptions = {
@@ -11,7 +11,7 @@ const createCommandOverviewEmbed = (cmd, commands) => {
     description: 'Overview over all available commands',
     fields: [
       { name: 'Commands:', value: cmdMapString },
-      { name: 'Info:', value: `For a more detailed information, you can either use the ${mh.cmdLineBlock('help')} command or add a parameter (any text) to the ${mh.cmdLineBlock('commands')} command`}
+      { name: 'Info:', value: `For a more detailed information, you can either use the ${'help'.cmdLineBlock()} command or add a parameter (any text) to the ${'commands'.cmdLineBlock()} command`}
     ]
   }
 
@@ -26,7 +26,7 @@ const createCommandDetailEmbed = (cmd, commands) => {
 
     return {
       name: `${e.name}:`,
-      value: `${mh.cmdLineBlock(cmdString)}\n${e.description}`
+      value: `${cmdString.cmdLineBlock()}\n${e.description}`
     };
   });
 
@@ -35,8 +35,8 @@ const createCommandDetailEmbed = (cmd, commands) => {
     description: 'Detailed overview over all available commands',
     fields: [
       ...cmdMap,
-      { name: 'Command parameter explanation:', value: `${mh.cmdLineBlock('[...]')} => required\n${mh.cmdLineBlock('{...}')} => optional`},
-      { name: 'Info:', value: `For a more detailed information, including parameter descriptions, you can use the ${mh.cmdLineBlock('help')} command`}
+      { name: 'Command parameter explanation:', value: `${'[...]'.cmdLineBlock()} => required\n${'{...}'.cmdLineBlock()} => optional`},
+      { name: 'Info:', value: `For a more detailed information, including parameter descriptions, you can use the ${'help'.cmdLineBlock()} command`}
     ]
   }
 

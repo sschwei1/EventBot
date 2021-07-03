@@ -13,8 +13,8 @@ const mapArgs = (args) => {
 
 const argString = (arg) => {
   const description = arg.description !== undefined ? arg.description + '\n' : '';
-  const defaultValue = arg.default !== undefined ? 'Default value: ' + cmdLineBlock(arg.default) + '\n' : '';
-  const required = 'Required: ' + cmdLineBlock(arg.required ?? true);
+  const defaultValue = arg.default !== undefined ? 'Default value: ' + arg.default.cmdLineBlock() + '\n' : '';
+  const required = 'Required: ' + (arg.required ?? true).cmdLineBlock();
   return description + defaultValue + required;
 };
 
@@ -24,14 +24,6 @@ const retHelp = (isArgs, haveArgs, cmdName, msg, global) => {
   const embed = createHelpEmbed(cmdName, global);
   msg.channel.send(embed).catch(e => fh.writeLog(e));
   return true;
-};
-
-const cmdBlock = (msg) => {
-  return "```" + msg + "```";
-};
-
-const cmdLineBlock = (msg) => {
-  return "`" + msg + "`";
 };
 
 const genEmbed = (options) => {
@@ -59,12 +51,12 @@ const createHelpEmbed = (cmdName, global) => {
   });
 
   const resOptions = {
-    title: `Command: ${cmdLineBlock(command.name)}`,
+    title: `Command: ${command.name.cmdLineBlock()}`,
     description: command.description,
     fields: [
-      { name: 'Usage:', value: cmdLineBlock(cmdString) },
+      { name: 'Usage:', value: cmdString.cmdLineBlock() },
       ...cmdArgFields,
-      { name: 'Command parameter explanation:', value: `${cmdLineBlock('[...]')} => required\n${cmdLineBlock('{...}')} => optional`},
+      { name: 'Command parameter explanation:', value: `${'[...]'.cmdLineBlock()} => required\n${'{...}'.cmdLineBlock()} => optional`},
     ]
   }
 
@@ -76,8 +68,6 @@ module.exports = {
   mapArgs,
   argString,
   retHelp,
-  cmdBlock,
-  cmdLineBlock,
   genEmbed,
   createHelpEmbed
 };

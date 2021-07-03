@@ -4,6 +4,8 @@ const ah = require('./helper/argsHelper');
 const mh = require('./helper/messageHelper');
 const fh = require('./helper/fileHelper');
 
+require('./helper/classHelper').setupClasses();
+
 fh.clearLog();
 
 const config = fh.getConfig();
