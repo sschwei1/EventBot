@@ -34,7 +34,7 @@ If no config file is found, a default template will be copied and the bot will s
 The config file contains a json looking as follows:
 ```json
 {
-  "token": "<your_bot_token",
+  "token": "<your_bot_token>",
   "prefix": "!ev "
 }
 ```
